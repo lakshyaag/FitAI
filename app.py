@@ -1,8 +1,8 @@
 import streamlit as st
 import utils
 
-st.set_page_config(page_title="FitAI", page_icon="🤖", layout="wide")
-st.title("FitAI - Your AI fitness trainer")
+st.set_page_config(page_title="FitAI", page_icon="💪", layout="wide")
+st.title("💪 FitAI - Your AI fitness trainer")
 
 st.subheader("Answer a few questions and get a tailored workout plan in ~5 minutes")
 
@@ -14,16 +14,27 @@ answers = []
 col1, col2 = st.columns(2)
 
 with col1:
-    for q in questions_list:
-        answers.append(utils.generate_question_answer(q))
+    sections = utils.get_sections(questions_list=questions_list)
+    for s in sections:
+        with st.expander(f"**{s}**"):
+            for q in questions_list:
+                if q["section"] == s:
+                    answers.append(utils.generate_question_box(q))
 
-with col2:
-    st.write(answers)
     submit_btn = st.button(
         "Generate plan!",
         key="submit",
         type="primary",
         use_container_width=True,
+    )
+
+with col2:
+    st.info(
+        (
+            "Please note that the app may hang or run into an error. "
+            "In such cases, try running the request again!"
+        ),
+        icon="🔔",
     )
 
     if submit_btn:
@@ -33,20 +44,22 @@ with col2:
             format_instructions=parser.get_format_instructions(),
         )
 
-        response, plan, parsed = st.tabs(["Response", "Plan", "Parsed"])
-
         try:
-            with st.spinner("Querying..."):
-                with response:
-                    response = utils.call_gpt(prompt=messages)
-                    st.write(response)
+            with st.spinner(
+                "💭 Building a personalized plan... this may take a few moments"
+            ):
+                response = utils.call_gpt(prompt=messages)
 
-                with plan:
-                    plan = utils.parse_response(response=response, parser=parser)
-                    st.write(plan)
+                plan = utils.parse_response(response=response, parser=parser)
 
-                with parsed:
-                    utils.print_plan(plan=plan)
+                workout, notes = utils.convert_to_dataframe(plan=plan)
+
+                workout_tab, notes_tab = st.tabs(["💪 Workouts", "📝 Notes"])
+
+                with workout_tab:
+                    st.dataframe(workout, use_container_width=True)
+                with notes_tab:
+                    st.dataframe(notes, use_container_width=True)
 
         except Exception as e:
             st.exception(e)
