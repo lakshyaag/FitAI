@@ -6,6 +6,10 @@ st.title("💪 FitAI - Your AI fitness trainer")
 
 st.subheader("Answer a few questions and get a tailored workout plan in ~5 minutes")
 
+models = {
+    "gpt-3.5-turbo": "GPT-3.5 (faster, but inaccurate)",
+    "gpt-4": "GPT-4 (slower, but detailed)",
+}
 
 questions_list = utils.load_questions()
 parser = utils.generate_parser()
@@ -20,6 +24,13 @@ with col1:
             for q in questions_list:
                 if q["section"] == s:
                     answers.append(utils.generate_question_box(q))
+
+    model = st.selectbox(
+        "Choose model to use: ",
+        options=models,
+        index=0,
+        format_func=lambda x: models[x],
+    )
 
     submit_btn = st.button(
         "Generate plan!",
@@ -48,7 +59,7 @@ with col2:
             with st.spinner(
                 "💭 Building a personalized plan... this may take a few moments"
             ):
-                response = utils.call_gpt(prompt=messages)
+                response = utils.call_gpt(prompt=messages, model=model)
 
                 plan = utils.parse_response(response=response, parser=parser)
 

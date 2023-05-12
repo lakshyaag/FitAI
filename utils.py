@@ -111,9 +111,9 @@ def generate_prompt(questions_list, answers, format_instructions):
     return messages
 
 
-def call_gpt(prompt):
+def call_gpt(prompt, model="gpt-3.5-turbo"):
     chat = ChatOpenAI(
-        model_name="gpt-4",
+        model_name=model,
         temperature=0.4,
         openai_api_key=openai_api_key,
         verbose=True,
