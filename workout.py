@@ -16,9 +16,12 @@ class Exercise(BaseModel):
     # exercise_type: str = Field(
     #     description="Category of the exercise (e.g., warmup, cardio, strength)"
     # )
-    sets: int = Field(description="Total number of sets of the exercise to complete")
+    sets: int = Field(
+        default=None, description="Total number of sets of the exercise to complete"
+    )
     reps: int = Field(
-        description="Total number of repetitions of the exercise in each set"
+        default=None,
+        description="Total number of repetitions of the exercise in each set",
     )
     duration: Duration = Field(
         default=None, description="Duration of the exercise, if applicable"
