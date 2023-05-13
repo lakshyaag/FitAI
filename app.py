@@ -27,7 +27,7 @@ with col1:
     model = st.selectbox(
         "Choose model to use: ",
         options=models,
-        index=0,
+        index=1,
         format_func=lambda x: models[x],
     )
 

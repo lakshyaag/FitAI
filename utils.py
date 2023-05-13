@@ -77,7 +77,7 @@ def generate_prompt(questions_list, answers_list):
     return messages
 
 
-def call_gpt(prompt, model="gpt-3.5-turbo"):
+def call_gpt(prompt, model="gpt-4"):
     chat = ChatOpenAI(
         model_name=model,
         temperature=0.2,
