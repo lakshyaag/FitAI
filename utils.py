@@ -11,9 +11,9 @@ from langchain.prompts import ChatPromptTemplate
 from prompts import (
     EXAMPLE_RESPONSE,
     SCHEMA,
-    answer_message,
+    first_message,
     format_message,
-    question_message,
+    qa_message,
     schema_message,
     system_message,
 )
@@ -56,23 +56,31 @@ def generate_question_box(question):
 
 
 @st.cache_data()
-def generate_prompt(questions_list, answers_list):
+def generate_qa_messages(questions_list, answers):
+    qa_messages = [
+        qa_message.format(question=q["text"], answer=answers[i])
+        for i, q in enumerate(questions_list)
+    ]
+    return qa_messages
+
+
+def generate_prompt(qa_messages):
     chat_prompt = ChatPromptTemplate.from_messages(
         [
             system_message,
-            question_message,
-            answer_message,
+            first_message,
             format_message,
             schema_message,
         ]
     )
 
     messages = chat_prompt.format_prompt(
-        questions=";".join(i["text"] for i in questions_list),
-        answers=";".join(map(str, answers_list)),
         example_response=EXAMPLE_RESPONSE,
         output_schema=SCHEMA,
     ).to_messages()
+
+    for x in reversed(qa_messages):
+        messages.insert(1, x)
 
     return messages
 

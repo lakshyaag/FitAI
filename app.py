@@ -48,9 +48,11 @@ with col2:
     )
 
     if submit_btn:
-        messages = utils.generate_prompt(
-            questions_list=questions_list, answers_list=answers
+        qa_messages = utils.generate_qa_messages(
+            questions_list=questions_list, answers=answers
         )
+
+        messages = utils.generate_prompt(qa_messages=qa_messages)
 
         try:
             with st.spinner(

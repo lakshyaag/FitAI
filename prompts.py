@@ -71,13 +71,15 @@ system_message = SystemMessagePromptTemplate.from_template(
     Ensure that you strictly adhere to the number of days and weeks the CLIENT is willing to do their workout."""  # noqa: E501
 )
 
-
-question_message = HumanMessagePromptTemplate.from_template(
-    "The list of questions that have been asked to the CLIENT (separated by a ;) are: \n{questions}"  # noqa: E501
+first_message = HumanMessagePromptTemplate.from_template(
+    template="""You will now be given a series of questions and answers containing information about the CLIENT
+    """  # noqa: E501
 )
 
-answer_message = HumanMessagePromptTemplate.from_template(
-    "The answers provided by the CLIENT (separated by a ;) are: \n{answers}"  # noqa: E501
+qa_message = HumanMessagePromptTemplate.from_template(
+    template="""{question}
+    CLIENT: {answer}
+    """
 )
 
 
