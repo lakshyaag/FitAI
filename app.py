@@ -7,15 +7,14 @@ st.title("💪 FitAI - Your AI fitness trainer")
 st.subheader("Answer a few questions and get a tailored workout plan in ~5 minutes")
 
 models = {
-    "gpt-3.5-turbo": "GPT-3.5 (faster, but inaccurate)",
+    "gpt-3.5-turbo": "GPT-3.5 (faster, but inaccurate and error-prone)",
     "gpt-4": "GPT-4 (slower, but detailed)",
 }
 
 questions_list = utils.load_questions()
-parser = utils.generate_parser()
 
 answers = []
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([1, 2])
 
 with col1:
     sections = utils.get_sections(questions_list=questions_list)
@@ -50,9 +49,7 @@ with col2:
 
     if submit_btn:
         messages = utils.generate_prompt(
-            questions_list=questions_list,
-            answers=answers,
-            format_instructions=parser.get_format_instructions(),
+            questions_list=questions_list, answers_list=answers
         )
 
         try:
@@ -61,7 +58,7 @@ with col2:
             ):
                 response = utils.call_gpt(prompt=messages, model=model)
 
-                plan = utils.parse_response(response=response, parser=parser)
+                plan = utils.parse_response(response=response)
 
                 workout, notes = utils.convert_to_dataframe(plan=plan)
 
