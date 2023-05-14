@@ -1,5 +1,5 @@
 import streamlit as st
-import utils
+import streamlit_utils as utils
 
 st.set_page_config(page_title="FitAI", page_icon="💪", layout="wide")
 st.title("💪 FitAI - Your AI fitness trainer")

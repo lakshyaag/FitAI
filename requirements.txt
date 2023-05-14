@@ -1,8 +1,10 @@
+fastapi==0.70.0
 langchain==0.0.167
 openai==0.27.6
+pandas==1.4.1
 pydantic==1.8.2
 python-dotenv==0.19.1
+PyYAML==6.0
 rich==13.3.1
-pyyaml==6.0
 streamlit==1.19.0
-altair<5
+uvicorn==0.15.0
