@@ -28,7 +28,7 @@ def get_workout_plan(answers: Request):
 
     prompts = utils.generate_prompt(qa_messages=qa_messages)
 
-    response = utils.call_gpt(prompt=prompts, model="gpt-3.5-turbo")
+    response = utils.call_gpt(prompt=prompts, model="gpt-4")
 
     parsed_response = utils.parse_response(response=response)
 
