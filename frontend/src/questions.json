@@ -1,0 +1,151 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "section": "Personal characteristics",
+      "text": "What is your age range?",
+      "question_type": "single_select",
+      "options": [
+        "Under 18",
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65 and above"
+      ]
+    },
+    {
+      "id": 2,
+      "section": "Personal characteristics",
+      "text": "What is your gender?",
+      "question_type": "single_select",
+      "options": ["Male", "Female", "Non-binary", "Prefer not to say"]
+    },
+    {
+      "id": 3,
+      "section": "Personal characteristics",
+      "text": "What is your primary goal for strength training?",
+      "question_type": "single_select",
+      "options": [
+        "Increase muscle mass",
+        "Improve overall strength",
+        "Improve athletic performance",
+        "Lose body fat and tone muscles",
+        "Rehabilitation or injury prevention"
+      ]
+    },
+    {
+      "id": 4,
+      "section": "Personal characteristics",
+      "text": "How would you describe your current fitness level?",
+      "question_type": "single_select",
+      "options": [
+        "Beginner (little or no experience)",
+        "Intermediate (some experience)",
+        "Advanced (regular and experienced lifter)"
+      ]
+    },
+    {
+      "id": 5,
+      "section": "Personal characteristics",
+      "text": "What is your current height (in cms)?",
+      "question_type": "open_text"
+    },
+    {
+      "id": 6,
+      "section": "Personal characteristics",
+      "text": "What is your current weight (in kgs)?",
+      "question_type": "open_text"
+    },
+    {
+      "id": 7,
+      "section": "History",
+      "text": "Have you ever followed a structured strength training program before?",
+      "question_type": "single_select",
+      "options": ["Yes", "No"]
+    },
+    {
+      "id": 8,
+      "section": "History",
+      "text": "Do you have any previous injuries or medical conditions that may affect your training?",
+      "question_type": "single_select",
+      "options": ["No", "Yes"]
+    },
+    {
+      "id": 9,
+      "section": "Goals",
+      "text": "How many days per week can you dedicate to strength training?",
+      "question_type": "single_select",
+      "options": ["2 days", "3 days", "4 days", "5 days", "6 days"]
+    },
+    {
+      "id": 10,
+      "section": "Goals",
+      "text": "How many weeks do you plan to workout?",
+      "question_type": "single_select",
+      "options": ["4 weeks", "5 weeks", "6 weeks", "7 weeks", "8 weeks"]
+    },
+    {
+      "id": 11,
+      "section": "Goals",
+      "text": "Do you have access to a gym or will you be working out at home?",
+      "question_type": "single_select",
+      "options": ["Gym access", "Home workouts"]
+    },
+    {
+      "id": 12,
+      "section": "History",
+      "text": "Which of these muscle groups do you consider your weakest or want to improve the most?",
+      "question_type": "single_select",
+      "options": [
+        "Core (abs, lower back)",
+        "Upper body (chest, shoulders, arms)",
+        "Lower body (legs, glutes)",
+        "Not sure"
+      ]
+    },
+    {
+      "id": 13,
+      "section": "History",
+      "text": "How would you rate your experience with strength training exercises?",
+      "question_type": "single_select",
+      "options": [
+        "Beginner (little to no experience)",
+        "Intermediate (some experience and knowledge)",
+        "Advanced (experienced and knowledgeable)"
+      ]
+    },
+    {
+      "id": 14,
+      "section": "Goals",
+      "text": "What type of strength training program do you prefer?",
+      "question_type": "single_select",
+      "options": [
+        "Full body workouts",
+        "Upper body and lower body split",
+        "Push, pull, legs (PPL) split",
+        "Body part specific split (e.g. chest day, back day)"
+      ]
+    },
+    {
+      "id": 15,
+      "section": "Goals",
+      "text": "Do you prefer to focus on bodyweight exercises, free weights, or a mix of both?",
+      "question_type": "single_select",
+      "options": ["Bodyweight exercises", "Free weights", "A mix of both"]
+    },
+    {
+      "id": 16,
+      "section": "Goals",
+      "text": "How important is increasing your cardiovascular fitness to you?",
+      "question_type": "single_select",
+      "options": [
+        "Not important",
+        "Somewhat important",
+        "Important",
+        "Very important"
+      ]
+    }
+  ]
+}
