@@ -1,10 +1,6 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { use } from 'react';
 
 export default function Home() {
-  const data = use(Promise.resolve('data'));
-
   return (
     <main>
       <div className='hero min-h-screen bg-base-200'>

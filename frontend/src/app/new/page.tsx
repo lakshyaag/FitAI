@@ -99,7 +99,7 @@ const NewPlanPage: NextPage = () => {
   });
 
   return (
-    <main className='flex flex-col'>
+    <main>
       <div className='mt-16'>
         <Question
           question={questions[currentQuestionId - 1]}
