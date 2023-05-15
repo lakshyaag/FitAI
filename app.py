@@ -13,7 +13,7 @@ models = {
 
 questions_list = utils.load_questions()
 
-answers = []
+answers = {}
 col1, col2 = st.columns([1, 2])
 
 with col1:
@@ -22,7 +22,7 @@ with col1:
         with st.expander(f"**{s}**"):
             for q in questions_list:
                 if q["section"] == s:
-                    answers.append(utils.generate_question_box(q))
+                    answers[q["id"]] = utils.generate_question_box(q)
 
     model = st.selectbox(
         "Choose model to use: ",
@@ -48,6 +48,7 @@ with col2:
     )
 
     if submit_btn:
+        st.write(answers)
         qa_messages = utils.generate_qa_messages(
             questions_list=questions_list, answers=answers
         )

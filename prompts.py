@@ -78,8 +78,7 @@ first_message = HumanMessagePromptTemplate.from_template(
 
 qa_message = HumanMessagePromptTemplate.from_template(
     template="""{question}
-    CLIENT: {answer}
-    """
+    CLIENT: {answer}"""
 )
 
 

@@ -46,12 +46,21 @@ def generate_question_box(question):
         return st.selectbox(
             label=f"**{question_text}**", options=answer_choices, key=question["id"]
         )
-    elif question["question_type"] == "open_text":
+    elif question["question_type"] == "multi_select":
+        answer_choices = question["options"]
+        return st.multiselect(
+            label=f"**{question_text}**", options=answer_choices, key=question["id"]
+        )
+    elif question["question_type"] == "numeric_input":
         return st.number_input(
             label=f"**{question_text}**",
             min_value=0.00,
             value=50.00,
             key=question["id"],
+        )
+    elif question["question_type"] == "text_input":
+        return st.text_input(
+            label=f"**{question_text}**", key=question["id"], value="N/A"
         )
 
 
@@ -96,9 +105,9 @@ def call_gpt(prompt, model="gpt-4"):
     )
 
     # st.write(prompt)
-    response = chat(prompt)
+    # response = chat(prompt)
 
-    return response
+    # return response
 
 
 def parse_response(response):

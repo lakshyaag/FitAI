@@ -1,13 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List
+from typing import Dict, Union, List
 
 import api_utils as utils
 
 
 class Request(BaseModel):
-    answer: List[str]
+    answer: Dict[str, Union[str, List[str]]]
 
 
 app = FastAPI()
