@@ -31,8 +31,8 @@ def load_questions():
 
 def generate_qa_messages(questions_list, answers):
     qa_messages = [
-        qa_message.format(question=q["text"], answer=answers[i])
-        for i, q in enumerate(questions_list)
+        qa_message.format(question=q["text"], answer=answers[str(q["id"])])
+        for q in questions_list
     ]
     return qa_messages
 

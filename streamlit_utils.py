@@ -59,7 +59,9 @@ def generate_question_box(question):
             key=question["id"],
         )
     elif question["question_type"] == "text_input":
-        return st.text_input(label=f"**{question_text}**", key=question["id"])
+        return st.text_input(
+            label=f"**{question_text}**", key=question["id"], value="N/A"
+        )
 
 
 @st.cache_data()
@@ -103,9 +105,9 @@ def call_gpt(prompt, model="gpt-4"):
     )
 
     # st.write(prompt)
-    response = chat(prompt)
+    # response = chat(prompt)
 
-    return response
+    # return response
 
 
 def parse_response(response):

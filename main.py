@@ -1,13 +1,13 @@
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List
+from typing import Dict, Union, List
 
 import api_utils as utils
 
 
 class Request(BaseModel):
-    answer: List[str]
+    answer: Dict[str, Union[str, List[str]]]
 
 
 app = FastAPI()
@@ -28,7 +28,7 @@ def get_workout_plan(answers: Request):
 
     prompts = utils.generate_prompt(qa_messages=qa_messages)
 
-    response = utils.call_gpt(prompt=prompts, model="gpt-4")
+    response = utils.call_gpt(prompt=prompts, model="gpt-3.5-turbo")
 
     parsed_response = utils.parse_response(response=response)
 
