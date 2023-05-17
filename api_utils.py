@@ -9,7 +9,7 @@ from langchain.prompts import ChatPromptTemplate
 
 from prompts import (
     EXAMPLE_RESPONSE,
-    SCHEMA,
+    WORKOUT_SCHEMA,
     first_message,
     format_message,
     qa_message,
@@ -49,7 +49,7 @@ def generate_prompt(qa_messages):
 
     messages = chat_prompt.format_prompt(
         example_response=EXAMPLE_RESPONSE,
-        output_schema=SCHEMA,
+        output_schema=WORKOUT_SCHEMA,
     ).to_messages()
 
     for x in reversed(qa_messages):

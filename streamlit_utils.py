@@ -10,11 +10,14 @@ from langchain.prompts import ChatPromptTemplate
 
 from prompts import (
     EXAMPLE_RESPONSE,
-    SCHEMA,
+    WORKOUT_SCHEMA,
+    STEPS_SCHEMA,
     first_message,
     format_message,
     qa_message,
+    plan_generator_message,
     schema_message,
+    steps_schema_message,
     system_message,
 )
 from workout import WorkoutPlan
@@ -73,19 +76,24 @@ def generate_qa_messages(questions_list, answers):
     return qa_messages
 
 
-def generate_prompt(qa_messages):
+def parse_summary_steps_response(summary_steps_response):
+    summary_steps_yaml = yaml.safe_load(summary_steps_response.content)["Steps"]
+
+    return summary_steps_yaml
+
+
+def generate_steps_prompt(qa_messages):
     chat_prompt = ChatPromptTemplate.from_messages(
         [
             system_message,
             first_message,
             format_message,
-            schema_message,
+            steps_schema_message,
         ]
     )
 
     messages = chat_prompt.format_prompt(
-        example_response=EXAMPLE_RESPONSE,
-        output_schema=SCHEMA,
+        steps_schema=STEPS_SCHEMA,
     ).to_messages()
 
     for x in reversed(qa_messages):
@@ -94,18 +102,36 @@ def generate_prompt(qa_messages):
     return messages
 
 
+def generate_workout_prompt(summary_steps_yaml):
+    chat_prompt = ChatPromptTemplate.from_messages(
+        [system_message, plan_generator_message, schema_message]
+    )
+
+    summary_gpt_response = yaml.safe_dump(summary_steps_yaml["summary"])
+    steps_gpt_response = yaml.safe_dump(summary_steps_yaml["steps"])
+
+    messages = chat_prompt.format_prompt(
+        output_schema=WORKOUT_SCHEMA,
+        example_response=EXAMPLE_RESPONSE,
+        summary_gpt_response=summary_gpt_response,
+        steps_gpt_response=steps_gpt_response,
+    ).to_messages()
+
+    return messages
+
+
 def call_gpt(prompt, model="gpt-4"):
     chat = ChatOpenAI(
         model_name=model,
-        temperature=0.2,
+        temperature=0.1,
         openai_api_key=openai_api_key,
         verbose=True,
         streaming=True,
         callbacks=[StreamingStdOutCallbackHandler()],
     )
 
-    # st.write(prompt)
     # st.write(chat.get_num_tokens_from_messages(prompt))
+    # st.write(prompt)
     response = chat(prompt)
 
     return response

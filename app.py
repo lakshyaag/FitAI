@@ -53,23 +53,40 @@ with col2:
             questions_list=questions_list, answers=answers
         )
 
-        messages = utils.generate_prompt(qa_messages=qa_messages)
+        steps_messages = utils.generate_steps_prompt(qa_messages=qa_messages)
 
         try:
-            with st.spinner(
-                "💭 Building a personalized plan... this may take a few moments"
-            ):
-                response = utils.call_gpt(prompt=messages, model=model)
+            tab_summary, tab_workout, tab_notes = st.tabs(
+                ["💡 Summary", "💪 Workout", "📝 Notes"]
+            )
+            with tab_summary:
+                with st.spinner("💭 Summarizing your information..."):
+                    summary_steps_response = utils.call_gpt(
+                        prompt=steps_messages, model="gpt-3.5-turbo"
+                    )
 
-                plan = utils.parse_response(response=response)
+                    summary_steps_yaml = utils.parse_summary_steps_response(
+                        summary_steps_response=summary_steps_response
+                    )
 
-                workout, notes = utils.convert_to_dataframe(plan=plan)
+                    st.subheader("Summary")
+                    st.write(summary_steps_yaml["summary"])
 
-                workout_tab, notes_tab = st.tabs(["💪 Workouts", "📝 Notes"])
+                    st.subheader("Steps")
+                    st.write(summary_steps_yaml["steps"])
 
-                with workout_tab:
-                    st.dataframe(workout, use_container_width=True)
-                with notes_tab:
+                with tab_workout:
+                    with st.spinner("☕ Generating your personalized workout plan..."):
+                        workout_messages = utils.generate_workout_prompt(
+                            summary_steps_yaml=summary_steps_yaml
+                        )
+                        response = utils.call_gpt(prompt=workout_messages, model=model)
+
+                        plan = utils.parse_response(response=response)
+
+                        workout, notes = utils.convert_to_dataframe(plan=plan)
+                        st.dataframe(workout, use_container_width=True)
+                with tab_notes:
                     st.dataframe(notes, use_container_width=True)
 
         except Exception as e:
