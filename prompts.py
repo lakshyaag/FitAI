@@ -32,7 +32,7 @@ WorkoutPlan:
 EXAMPLE_RESPONSE = """
 WorkoutPlan:
   wks:
-    - wk_range: Week 1-2
+    - wk_range: Week 1-3
       days:
         - num: 1
           focus: Body Part A
@@ -106,6 +106,8 @@ Here is the output schema:
 ```
 {output_schema}
 ```
+
+Generate a highly personalized workout plan in the provide format. DO NOT ADD OR REMOVE EXTRA INDENTATIONS.
 """  # noqa: E501
 )
 
