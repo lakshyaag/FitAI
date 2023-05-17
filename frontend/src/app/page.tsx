@@ -1,5 +1,5 @@
-import { getWorkoutPlan } from "@/utils";
-import Link from 'next/link';
+import { getWorkoutPlan } from "@/utils"
+import Link from "next/link"
 
 export default function Home() {
   const dummyData = {
@@ -23,31 +23,35 @@ export default function Home() {
       "17": "",
       "18": "3 months",
     },
-  };
+  }
 
-  getWorkoutPlan(dummyData).then((data) => {
-    console.log(data);
-  }).catch((err) => {
-    console.log(err);
-  });
+  getWorkoutPlan(dummyData)
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 
   return (
     <main>
-      <div className='hero min-h-screen bg-base-200'>
-        <div className='hero-content text-center'>
-          <div className='max-w-md'>
-            <h1 className='text-5xl font-bold'>FitAI</h1>
-            <p className='py-6'>
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+      <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="text-5xl font-bold">💪 FitAI</h1>
+            <p className="pt-6">
+              Elevate your fitness game with a custom workout plan 🏋️‍♀️
             </p>
-            <Link href='/new' className='btn btn-primary'>
+            <p className="pb-6">
+              Just answer a few questions about yourself and jumpstart your
+              journey! 🚀
+            </p>
+            <Link href="/new" className="btn btn-primary">
               Get Started
             </Link>
           </div>
         </div>
       </div>
     </main>
-  );
+  )
 }
