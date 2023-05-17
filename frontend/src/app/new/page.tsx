@@ -42,7 +42,7 @@ const Question: FC<{
 
   return (
     <div className='card bordered'>
-      <div className='card-body'>
+      <div className='card-body flex flex-col items-center'>
         <h2 className='card-title'>{question.text}</h2>
         {/* <p className='card-text'>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
@@ -99,7 +99,7 @@ const NewPlanPage: NextPage = () => {
   });
 
   return (
-    <main>
+    <main className='flex flex-col items-center '>
       <div className='mt-16'>
         <Question
           question={questions[currentQuestionId - 1]}
