@@ -48,7 +48,7 @@ with col2:
     )
 
     if submit_btn:
-        st.write(answers)
+        # st.write(answers)
         qa_messages = utils.generate_qa_messages(
             questions_list=questions_list, answers=answers
         )

@@ -67,8 +67,8 @@ def generate_question_box(question):
 @st.cache_data()
 def generate_qa_messages(questions_list, answers):
     qa_messages = [
-        qa_message.format(question=q["text"], answer=answers[i])
-        for i, q in enumerate(questions_list)
+        qa_message.format(question=q["text"], answer=answers[(q["id"])])
+        for q in questions_list
     ]
     return qa_messages
 
@@ -105,9 +105,10 @@ def call_gpt(prompt, model="gpt-4"):
     )
 
     # st.write(prompt)
-    # response = chat(prompt)
+    # st.write(chat.get_num_tokens_from_messages(prompt))
+    response = chat(prompt)
 
-    # return response
+    return response
 
 
 def parse_response(response):

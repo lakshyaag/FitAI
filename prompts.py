@@ -34,10 +34,6 @@ WorkoutPlan:
               type: Type A
               sets: 3
               reps: 10
-            - name: Exercise A2
-              type: Type C
-              sets: 3
-              reps: 12
             - name: Exercise A3
               type: Type B
               dur:
@@ -54,26 +50,20 @@ WorkoutPlan:
               type: Type A
               sets: 3
               reps: 10
-            - name: Exercise B3
-              type: Type C
-              dur:
-                val: 1
-                unit: minute
   notes:
     - content: Note 1
     - content: Note 2
 """
 
 system_message = SystemMessagePromptTemplate.from_template(
-    """Your task is to act as a personal fitness trainer. 
-    You will be provided with information about your CLIENT's current fitness level, their goals, and other preferences they have. 
+    """Your task is to act as a personal fitness trainer for a CLIENT. 
+    You will be provided with information about your CLIENT's personal information, their fitness history, their goals, and any physical constraints they may have. 
     You have to prepare a detailed workout plan for the CLIENT, including everything essential for physical fitness.
-    Ensure that you strictly adhere to the number of days and weeks the CLIENT is willing to do their workout."""  # noqa: E501
+    Ensure that you STRICTLY adhere to the number of days and weeks the CLIENT is willing to do their workout."""  # noqa: E501
 )
 
 first_message = HumanMessagePromptTemplate.from_template(
-    template="""You will now be given a series of questions and answers containing information about the CLIENT
-    """  # noqa: E501
+    template="""You will now be given a series of questions with the CLIENT's answers."""  # noqa: E501
 )
 
 qa_message = HumanMessagePromptTemplate.from_template(
@@ -83,9 +73,9 @@ qa_message = HumanMessagePromptTemplate.from_template(
 
 
 format_message = HumanMessagePromptTemplate.from_template(
-    template="""With the given details, proceed to create a detailed weekly plan that can be followed for 2 months for the CLIENT, making sure to incorporate their inputs properly. 
-Ensure that you include cardio and rest time inside the plan as part of the `exercise` object.  If a day is classified as "rest day", skip it from your output. 
-Try to keep the notes section as generic as possible as most CLIENTS will not read it."""  # noqa: E501
+    template="""With the given details, think step by step in detail AS A QUALIFIED FITNESS TRAINER. Then, proceed to create a detailed weekly plan for the CLIENT, making sure to incorporate their inputs properly. 
+    Ensure that you include cardio and rest time inside the plan as part of the `exercise` object only.
+    DO NOT explain the steps you are taking to create the plan. YOU ARE ONLY SUPPOSED to reply with the plan IN THE GIVEN FORMAT."""  # noqa: E501
 )
 
 
