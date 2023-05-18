@@ -25,13 +25,13 @@ export default function Home() {
     },
   }
 
-  getWorkoutPlan(dummyData)
-    .then((data) => {
-      console.log(data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  // getWorkoutPlan(dummyData)
+  //   .then((data) => {
+  //     console.log(data)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
 
   return (
     <main>

@@ -14,8 +14,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-theme="fantasy">
-      <body className={`${inter.className} py-4 flex flex-col items-center`}>
+    <html lang="en" data-theme="pastel">
+      <body
+        className={`${inter.className} flex flex-col items-center bg-base-200`}
+      >
         {children}
       </body>
     </html>

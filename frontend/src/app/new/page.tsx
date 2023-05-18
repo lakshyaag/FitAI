@@ -4,6 +4,7 @@ import { NextPage } from "next"
 import { FC, useEffect, useState } from "react"
 
 import questionsFile from "../../questions.json"
+import { getWorkoutPlan } from "@/utils"
 
 const { questions } = questionsFile as {
   questions: Question[]
@@ -42,16 +43,40 @@ const sectionBreakpoints = {
 const Question: FC<{
   question: Question
   isLast: boolean
-  onClickNext: (answer: string) => void
+  onClickNext: (answer: string | string[]) => void
 }> = ({ question, isLast, onClickNext }) => {
-  const [answer, setAnswer] = useState<string>(question.options?.[0] || "")
+  const [answer, setAnswer] = useState<string | string[]>(
+    question.question_type === "multi_select"
+      ? []
+      : question.options?.[0] || "N/A"
+  )
+
+  const handleCheckboxChange = (option: string) => {
+    if (answer.includes(option)) {
+      // Remove the option if it's already selected
+      setAnswer((prevAnswer) =>
+        (prevAnswer as string[]).filter(
+          (selectedOption) => selectedOption !== option
+        )
+      )
+    } else {
+      // Add the option if it's not selected
+      setAnswer((prevAnswer) => [...(prevAnswer as string[]), option])
+    }
+  }
 
   useEffect(() => {
-    setAnswer(question.options?.[0] || "")
+    if (question.question_type === "single_select") {
+      setAnswer(question.options?.[0])
+    } else if (question.question_type === "multi_select") {
+      setAnswer([])
+    } else {
+      setAnswer("N/A")
+    }
   }, [question])
 
   return (
-    <div className="card bordered px-4">
+    <div className="card card-normal bordered px-4 glass">
       <div className="card-body flex flex-col items-center">
         <h2 className="card-title">{question.text}</h2>
 
@@ -82,20 +107,23 @@ const Question: FC<{
           )}
           {question.question_type === "multi_select" && (
             // TODO: Add multi-select question function
-            <select
-              className="select w-full max-w-xs select-bordered"
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-            >
-              <option disabled selected>
-                Choose an option
-              </option>
-              {question.options.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            <div className="max-h-80 sm:max-h-60 md:max-h-36 overflow-auto">
+              <div className="flex flex-col">
+                {question.options.map((option) => (
+                  <label
+                    className="label cursor-pointer flex items-center"
+                    key={option}
+                  >
+                    <span className="label-text">{option}</span>
+                    <input
+                      type="checkbox"
+                      className="checkbox mx-2"
+                      onChange={() => handleCheckboxChange(option)}
+                    />
+                  </label>
+                ))}
+              </div>
+            </div>
           )}
           {question.question_type === "text_input" && (
             <input
@@ -110,7 +138,7 @@ const Question: FC<{
         <button
           className="btn btn-primary w-fit mx-auto mt-4"
           onClick={() => {
-            console.log({ answer })
+            // console.log({ answer })
             onClickNext(answer)
           }}
         >
@@ -123,19 +151,19 @@ const Question: FC<{
 
 const NewPlanPage: NextPage = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState<number>(1)
-  const [answers, setAnswers] = useState<Record<number, string>>({})
+  const [answers, setAnswers] = useState<Record<number, string | string[]>>({})
 
   console.log({
     answers,
   })
 
   return (
-    <main className="flex flex-col items-center">
-      <div className="mt-16">
+    <main className="flex flex-col items-center min-h-screen justify-center p-2">
+      <div>
         <Question
           question={questions[currentQuestionId - 1]}
           isLast={currentQuestionId === questions.length}
-          onClickNext={(answer: string) => {
+          onClickNext={(answer: string | string[]) => {
             if (currentQuestionId === questions.length) {
               alert("Submitted!")
               return
