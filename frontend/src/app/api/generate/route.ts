@@ -1,14 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 
-const API_URL = 'https://fitai-backend.onrender.com/generate/';
+// const API_URL = 'https://fitai-backend.onrender.com/generate/';
+const API_URL = "http://localhost:5000/generate";
 
 export async function POST(req: NextRequest) {
   const data = await req.json();
-  console.log(data);
   const response = await fetch(API_URL, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       answer: data,

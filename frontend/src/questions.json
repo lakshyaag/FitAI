@@ -3,7 +3,6 @@
     {
       "id": 1,
       "section": "Personal Information",
-      "section": "Personal Information",
       "text": "What is your age range?",
       "question_type": "single_select",
       "options": [
@@ -19,7 +18,6 @@
     {
       "id": 2,
       "section": "Personal Information",
-      "section": "Personal Information",
       "text": "What is your gender?",
       "question_type": "single_select",
       "options": [
@@ -31,10 +29,6 @@
     },
     {
       "id": 3,
-      "section": "Personal Information",
-      "text": "What is your current height (in cms)?",
-      "question_type": "numeric_input",
-      "options": []
       "section": "Personal Information",
       "text": "What is your current height (in cms)?",
       "question_type": "numeric_input",
@@ -72,8 +66,6 @@
       "id": 7,
       "section": "Fitness History",
       "text": "How many days per week can you dedicate to strength training?",
-      "section": "Fitness History",
-      "text": "How many days per week can you dedicate to strength training?",
       "question_type": "single_select",
       "options": [
         "2 days",
@@ -88,16 +80,7 @@
       "id": 8,
       "section": "Goals & Preferences",
       "text": "What is your primary goal for strength training?",
-      "section": "Goals & Preferences",
-      "text": "What is your primary goal for strength training?",
       "question_type": "single_select",
-      "options": [
-        "Lose weight",
-        "Gain muscle",
-        "Improve strength",
-        "Increase endurance",
-        "General health and well-being"
-      ]
       "options": [
         "Lose weight",
         "Gain muscle",
@@ -110,8 +93,6 @@
       "id": 9,
       "section": "Goals & Preferences",
       "text": "Do you have access to a gym or will you be working out at home?",
-      "section": "Goals & Preferences",
-      "text": "Do you have access to a gym or will you be working out at home?",
       "question_type": "single_select",
       "options": [
         "Gym",
@@ -121,8 +102,6 @@
     },
     {
       "id": 10,
-      "section": "Goals & Preferences",
-      "text": "Which of these muscle groups do you consider your weakest or want to improve the most?",
       "section": "Goals & Preferences",
       "text": "Which of these muscle groups do you consider your weakest or want to improve the most?",
       "question_type": "single_select",
@@ -139,18 +118,7 @@
       "id": 11,
       "section": "Goals & Preferences",
       "text": "What type of strength training program do you prefer?",
-      "section": "Goals & Preferences",
-      "text": "What type of strength training program do you prefer?",
       "question_type": "single_select",
-      "options": [
-        "Full-body workouts",
-        "Upper/lower body splits",
-        "Push/pull/legs splits",
-        "Body part splits",
-        "Circuit training",
-        "High-intensity interval training",
-        "Functional training"
-      ]
       "options": [
         "Full-body workouts",
         "Upper/lower body splits",
@@ -163,8 +131,6 @@
     },
     {
       "id": 12,
-      "section": "Goals & Preferences",
-      "text": "Do you prefer to focus on bodyweight exercises, free weights, or a mix of both?",
       "section": "Goals & Preferences",
       "text": "Do you prefer to focus on bodyweight exercises, free weights, or a mix of both?",
       "question_type": "single_select",
