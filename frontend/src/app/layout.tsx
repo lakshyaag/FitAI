@@ -1,5 +1,7 @@
+import { Dispatch, SetStateAction, createContext, useState } from 'react';
 import './globals.css';
 import { Inter } from 'next/font/google';
+import { APIResponse } from './result/page';
 
 const inter = Inter({ subsets: ['latin'] });
 

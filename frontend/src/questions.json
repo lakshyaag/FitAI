@@ -2,7 +2,7 @@
   "questions": [
     {
       "id": 1,
-      "section": "Personal characteristics",
+      "section": "Personal Information",
       "text": "What is your age range?",
       "question_type": "single_select",
       "options": [
@@ -17,135 +17,151 @@
     },
     {
       "id": 2,
-      "section": "Personal characteristics",
+      "section": "Personal Information",
       "text": "What is your gender?",
       "question_type": "single_select",
       "options": ["Male", "Female", "Non-binary", "Prefer not to say"]
     },
     {
       "id": 3,
-      "section": "Personal characteristics",
-      "text": "What is your primary goal for strength training?",
-      "question_type": "single_select",
-      "options": [
-        "Increase muscle mass",
-        "Improve overall strength",
-        "Improve athletic performance",
-        "Lose body fat and tone muscles",
-        "Rehabilitation or injury prevention"
-      ]
+      "section": "Personal Information",
+      "text": "What is your current height (in cms)?",
+      "question_type": "numeric_input",
+      "options": []
     },
     {
       "id": 4,
-      "section": "Personal characteristics",
-      "text": "How would you describe your current fitness level?",
-      "question_type": "single_select",
-      "options": [
-        "Beginner (little or no experience)",
-        "Intermediate (some experience)",
-        "Advanced (regular and experienced lifter)"
-      ]
+      "section": "Personal Information",
+      "text": "What is your current weight (in kgs)?",
+      "question_type": "numeric_input",
+      "options": []
     },
     {
       "id": 5,
-      "section": "Personal characteristics",
-      "text": "What is your current height (in cms)?",
-      "question_type": "open_text"
+      "section": "Fitness History",
+      "text": "How would you describe your current fitness level?",
+      "question_type": "single_select",
+      "options": ["Beginner", "Intermediate", "Advanced"]
     },
     {
       "id": 6,
-      "section": "Personal characteristics",
-      "text": "What is your current weight (in kgs)?",
-      "question_type": "open_text"
-    },
-    {
-      "id": 7,
-      "section": "History",
+      "section": "Fitness History",
       "text": "Have you ever followed a structured strength training program before?",
-      "question_type": "single_select",
-      "options": ["Yes", "No"]
-    },
-    {
-      "id": 8,
-      "section": "History",
-      "text": "Do you have any previous injuries or medical conditions that may affect your training?",
       "question_type": "single_select",
       "options": ["No", "Yes"]
     },
     {
-      "id": 9,
-      "section": "Goals",
+      "id": 7,
+      "section": "Fitness History",
       "text": "How many days per week can you dedicate to strength training?",
       "question_type": "single_select",
-      "options": ["2 days", "3 days", "4 days", "5 days", "6 days"]
+      "options": ["2 days", "3 days", "4 days", "5 days", "6 days", "7 days"]
+    },
+    {
+      "id": 8,
+      "section": "Goals & Preferences",
+      "text": "What is your primary goal for strength training?",
+      "question_type": "single_select",
+      "options": [
+        "Lose weight",
+        "Gain muscle",
+        "Improve strength",
+        "Increase endurance",
+        "General health and well-being"
+      ]
+    },
+    {
+      "id": 9,
+      "section": "Goals & Preferences",
+      "text": "Do you have access to a gym or will you be working out at home?",
+      "question_type": "single_select",
+      "options": ["Gym", "Home", "Both"]
     },
     {
       "id": 10,
-      "section": "Goals",
-      "text": "How many weeks do you plan to workout?",
+      "section": "Goals & Preferences",
+      "text": "Which of these muscle groups do you consider your weakest or want to improve the most?",
       "question_type": "single_select",
-      "options": ["4 weeks", "5 weeks", "6 weeks", "7 weeks", "8 weeks"]
+      "options": ["Chest", "Back", "Arms", "Shoulders", "Legs", "Core"]
     },
     {
       "id": 11,
-      "section": "Goals",
-      "text": "Do you have access to a gym or will you be working out at home?",
-      "question_type": "single_select",
-      "options": ["Gym access", "Home workouts"]
-    },
-    {
-      "id": 12,
-      "section": "History",
-      "text": "Which of these muscle groups do you consider your weakest or want to improve the most?",
-      "question_type": "single_select",
-      "options": [
-        "Core (abs, lower back)",
-        "Upper body (chest, shoulders, arms)",
-        "Lower body (legs, glutes)",
-        "Not sure"
-      ]
-    },
-    {
-      "id": 13,
-      "section": "History",
-      "text": "How would you rate your experience with strength training exercises?",
-      "question_type": "single_select",
-      "options": [
-        "Beginner (little to no experience)",
-        "Intermediate (some experience and knowledge)",
-        "Advanced (experienced and knowledgeable)"
-      ]
-    },
-    {
-      "id": 14,
-      "section": "Goals",
+      "section": "Goals & Preferences",
       "text": "What type of strength training program do you prefer?",
       "question_type": "single_select",
       "options": [
-        "Full body workouts",
-        "Upper body and lower body split",
-        "Push, pull, legs (PPL) split",
-        "Body part specific split (e.g. chest day, back day)"
+        "Full-body workouts",
+        "Upper/lower body splits",
+        "Push/pull/legs splits",
+        "Body part splits",
+        "Circuit training",
+        "High-intensity interval training",
+        "Functional training"
       ]
     },
     {
-      "id": 15,
-      "section": "Goals",
+      "id": 12,
+      "section": "Goals & Preferences",
       "text": "Do you prefer to focus on bodyweight exercises, free weights, or a mix of both?",
       "question_type": "single_select",
       "options": ["Bodyweight exercises", "Free weights", "A mix of both"]
     },
     {
-      "id": 16,
-      "section": "Goals",
-      "text": "How important is increasing your cardiovascular fitness to you?",
+      "id": 13,
+      "section": "Physical Constraints",
+      "text": "Have you ever had any previous injuries or medical conditions that may affect your training?",
+      "question_type": "single_select",
+      "options": ["No", "Yes"]
+    },
+    {
+      "id": 14,
+      "section": "Physical Constraints",
+      "text": "If yes, please specify the injuries or medical conditions (consult a healthcare professional before starting any fitness program)",
+      "question_type": "text_input",
+      "options": []
+    },
+    {
+      "id": 15,
+      "section": "Goals & Preferences",
+      "text": "What is your preferred duration for each workout session?",
       "question_type": "single_select",
       "options": [
-        "Not important",
-        "Somewhat important",
-        "Important",
-        "Very important"
+        "Less than 30 minutes",
+        "30-60 minutes",
+        "60-90 minutes",
+        "More than 90 minutes"
       ]
+    },
+    {
+      "id": 16,
+      "section": "Goals & Preferences",
+      "text": "What equipment do you have access to for your workouts? (Select all that apply)",
+      "question_type": "multi_select",
+      "options": [
+        "Dumbbells",
+        "Barbells",
+        "Resistance bands",
+        "Kettlebells",
+        "Pull-up bar",
+        "Bench",
+        "Squat rack",
+        "Cardio machines (e.g., treadmill, stationary bike, elliptical)",
+        "None"
+      ]
+    },
+    {
+      "id": 17,
+      "section": "Goals & Preferences",
+      "text": "Are there any specific exercises you're already familiar with and would like to include in your workout plan? (Optional)",
+      "question_type": "text_input",
+      "options": []
+    },
+    {
+      "id": 18,
+      "section": "Goals & Preferences",
+      "text": "How long do you plan to follow this workout program?",
+      "question_type": "single_select",
+      "options": ["1 month", "3 months", "6 months"]
     }
   ]
 }
