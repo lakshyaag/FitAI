@@ -304,7 +304,7 @@ const DayDisplay: FC<{ day: IDay; weekNumber: number }> = ({
   return (
     <div
       tabIndex={calculateTabIndex(weekNumber, day.num - 1)}
-      className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box"
+      className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
     >
       <div className="collapse-title text-xl font-medium">
         Day {day.num} - {day.focus}
@@ -335,14 +335,14 @@ const ResultPage: NextPage = () => {
   console.log(generatedWorkout);
 
   return (
-    <main>
+    <main className="min-h-screen justify-center">
       <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mt-4">
         📏 Your personalized workout
       </h1>
 
       <div className="divider" />
 
-      <div className="flex flex-col gap-8 px-2">
+      <div className="flex flex-col justify-center gap-8 px-2">
         {generatedWorkout.wks.map((week) => (
           <WeekDisplay
             key={week.wk_range}
