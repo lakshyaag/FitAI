@@ -35,16 +35,14 @@ export default function Home() {
 
   return (
     <main>
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero min-h-screen">
         <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="text-5xl font-bold">💪 FitAI</h1>
-            <p className="pt-6">
-              Elevate your fitness game with a custom workout plan 🏋️‍♀️
-            </p>
-            <p className="pb-6">
-              Just answer a few questions about yourself and jumpstart your
-              journey! 🚀
+            <h1 className="text-5xl font-bold">FitAI</h1>
+            <p className="py-6">
+              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
+              et a id nisi.
             </p>
             <Link href="/new" className="btn btn-primary">
               Get Started
