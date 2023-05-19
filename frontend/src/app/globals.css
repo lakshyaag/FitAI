@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.css-1nmdiq5-menu {
+    z-index: 100!important;
+}
+
+.steps {
+    z-index: -1!important;
+}

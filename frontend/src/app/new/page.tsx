@@ -110,7 +110,7 @@ const Question: FC<{
             <Select
               isMulti
               options={formatMultiOptions(question.options)}
-              className="select select-bordered z-20"
+              className="select select-bordered  z-100"
               onChange={(values) => {
                 setAnswer(values.map((value) => value.value));
               }}
@@ -137,15 +137,16 @@ const NewPlanPage: NextPage = () => {
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
 
   return (
-    <main className="flex flex-col items-center min-h-screen justify-center p-2">
+    <main className="flex flex-col items-center min-h-screen justify-center z-10 p-2">
       <div>
         <Question
           question={questions[currentQuestionId - 1]}
           isLast={currentQuestionId === questions.length}
           onClickNext={async (answer: Answer) => {
-            setAnswers({ ...answers, [currentQuestionId]: answer });
+            const newAnswers = { ...answers, [currentQuestionId]: answer };
+            setAnswers(newAnswers);
             if (currentQuestionId === questions.length) {
-              const data = await getWorkoutPlan({ answer: answers });
+              const data = await getWorkoutPlan({ answer: newAnswers });
               // pass this data to the result page
               window.location.href = `/result?workout=${encodeURIComponent(
                 JSON.stringify(data)
@@ -157,11 +158,11 @@ const NewPlanPage: NextPage = () => {
         />
       </div>
 
-      <ul className="steps mx-auto mt-8 gap-4">
+      <ul className="steps mx-auto -z-10 mt-8 gap-4">
         {formSections.map((section) => (
           <li
             key={section}
-            className={`step ${
+            className={`step  ${
               currentQuestionId >= sectionBreakpoints[section] && "step-primary"
             }`}
           >

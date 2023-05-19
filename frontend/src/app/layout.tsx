@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="pastel">
       <body
-        className={`${inter.className} flex flex-col items-center bg-base-200`}
+        className={`${inter.className} -z-20 relative flex flex-col items-center bg-base-200`}
       >
         {children}
       </body>
