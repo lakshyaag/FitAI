@@ -2,8 +2,8 @@ interface dataProps {
   answer: Record<number, string | string[]>;
 }
 
-// const API_URL = 'https://fitai-backend.onrender.com/generate/'
-const API_URL = "http://localhost:5000";
+const API_URL = "https://fitai-backend.onrender.com";
+// const API_URL = "http://localhost:5000";
 
 export const getWorkoutPlan = async (
   data: dataProps,
