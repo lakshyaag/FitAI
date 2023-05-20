@@ -7,7 +7,7 @@ const API_URL = "https://fitai-backend.onrender.com";
 
 export const getWorkoutPlan = async (
   data: dataProps,
-  endpoint: string = "/generate"
+  endpoint: string = "/generate/"
 ) => {
   console.log("Fetching data");
   console.log("DATA: ", JSON.stringify(data));

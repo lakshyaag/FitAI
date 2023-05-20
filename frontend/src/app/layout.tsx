@@ -1,19 +1,19 @@
-import { Dispatch, SetStateAction, createContext, useState } from "react"
-import "./globals.css"
-import { Inter } from "next/font/google"
-import { APIResponse } from "./result/page"
+import { Dispatch, SetStateAction, createContext, useState } from "react";
+import "./globals.css";
+import { Inter } from "next/font/google";
+import { APIResponse } from "./result/page";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "FitAI",
   description: "Elevate your fitness game with a custom workout plan",
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" data-theme="pastel">
@@ -23,5 +23,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  )
+  );
 }

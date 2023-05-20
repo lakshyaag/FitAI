@@ -134,6 +134,32 @@ const Question: FC<{
   );
 };
 
+const Loader: FC<{}> = ({}) => {
+  return (
+    <div className="mt-4 alert bg-secondary text-secondary-content shadow-md">
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          className="stroke-current flex-shrink-0 w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <span>
+          Please wait for approximately 5 minutes for GPT-4 to generate your
+          plan!
+        </span>
+      </div>
+    </div>
+  );
+};
+
 const NewPlanPage: NextPage = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState<number>(1);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
@@ -163,18 +189,25 @@ const NewPlanPage: NextPage = () => {
           }}
         />
       </div>
-      <ul className="steps mx-auto -z-10 mt-8 gap-4">
-        {formSections.map((section) => (
-          <li
-            key={section}
-            className={`step  ${
-              currentQuestionId >= sectionBreakpoints[section] && "step-primary"
-            }`}
-          >
-            {section}
-          </li>
-        ))}
-      </ul>
+
+      {loading ? (
+        <Loader />
+      ) : (
+        <ul className="steps mx-auto -z-10 mt-8 gap-4">
+          {formSections.map((section) => (
+            <li
+              key={section}
+              className={`step  ${
+                currentQuestionId >= sectionBreakpoints[section] &&
+                "step-primary"
+              }`}
+            >
+              {section}
+            </li>
+          ))}
+        </ul>
+      )}
+
       {/* Show answers */}
       {/* <div className="overflow-x-auto max-h-32 my-4">
         <table className="table table-compact">
