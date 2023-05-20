@@ -236,19 +236,26 @@ interface IWeek {
 interface IDay {
   num: number;
   focus: string;
-  exs:
-    | {
-        name: string;
-        type: string;
-        sets: string | null;
-        reps: string | null;
-        dur: {
-          val: number;
-          unit: string;
-        } | null;
-      }[]
-    | null;
+  exs: IExs[] | null;
 }
+
+interface IExs {
+  name: string;
+  type: string;
+  sets: string | null;
+  reps: string | null;
+  dur: {
+    val: number;
+    unit: string;
+  } | null;
+}
+
+const exTypeColor: { [exType: IExs["type"]]: string } = {
+  Warmup: "badge-neutral",
+  Strength: "badge-primary",
+  Cardio: "badge-secondary",
+  Stretching: "badge-accent",
+};
 
 export interface APIResponse {
   wks: IWeek[];
@@ -283,12 +290,12 @@ const formatSetsRepsDuration = (
 ) => {
   // eg. 3x10
   if (sets && reps) {
-    return `${sets} x ${reps}`;
+    return `${sets} sets x ${reps} reps`;
   }
 
   // eg. 3x30s
   if (sets && dur) {
-    return `${sets} x ${dur.val}${dur.unit}`;
+    return `${sets} sets x ${dur.val}${dur.unit}`;
   }
 
   // eg. 1 minute
@@ -311,18 +318,38 @@ const DayDisplay: FC<{ day: IDay; weekNumber: number }> = ({
       </div>
       <div className="collapse-content">
         {day.exs ? (
-          <ul className="list-disc list-inside">
-            {day.exs.map((ex) => (
-              <li key={ex.name}>
-                {ex.name} ({ex.type}){" "}
-                <span>{formatSetsRepsDuration(ex.sets, ex.reps, ex.dur)}</span>
-              </li>
-            ))}
-          </ul>
+          <WorkoutDisplay exs={day.exs} />
         ) : (
-          <p>Rest day</p>
+          <div className="card card-compact card-bordered glass my-4">
+            <div className="card-body">
+              <div className="card-title">{day.focus}</div>
+            </div>
+          </div>
         )}
       </div>
+    </div>
+  );
+};
+
+const WorkoutDisplay: FC<{ exs: IExs[] }> = ({ exs }) => {
+  return (
+    <div>
+      {exs.map((ex) => (
+        <div
+          className="card card-compact card-bordered glass my-4"
+          key={ex.name}
+        >
+          <div className="card-body">
+            <div className="card-title">{ex.name}</div>
+            <p>{formatSetsRepsDuration(ex.sets, ex.reps, ex.dur)}</p>
+            <div className="card-actions justify-end">
+              <div className={`badge badge-md ${exTypeColor[ex.type]}`}>
+                {ex.type}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
