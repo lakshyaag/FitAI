@@ -6,8 +6,7 @@ import Select from "react-select";
 
 import questionsFile from "../../questions.json";
 import { getWorkoutPlan } from "../utils";
-
-type Answer = string | string[];
+import { Answer } from "../types";
 
 const { questions } = questionsFile as {
   questions: Question[];
@@ -50,8 +49,9 @@ const formatMultiOptions = (options: string[]) => {
 const Question: FC<{
   question: Question;
   isLast: boolean;
+  isLoading: boolean;
   onClickNext: (answer: Answer) => Promise<void>;
-}> = ({ question, isLast, onClickNext }) => {
+}> = ({ question, isLast, isLoading, onClickNext }) => {
   const [answer, setAnswer] = useState<Answer>(
     question.question_type ? [] : question.options?.[0] || ""
   );
@@ -69,7 +69,7 @@ const Question: FC<{
   }, [question]);
 
   return (
-    <div className="card card-normal bordered px-4 glass">
+    <div className="card card-normal bordered px-8 glass">
       <div className="card-body flex flex-col items-center">
         <h2 className="card-title">{question.text}</h2>
 
@@ -119,13 +119,15 @@ const Question: FC<{
         </div>
 
         <button
-          className="btn btn-primary w-fit mx-auto mt-4"
+          className={`btn btn-primary w-fit mx-auto mt-4 ${
+            isLoading ? "loading" : ""
+          }`}
           onClick={() => {
             // console.log({ answer })
             onClickNext(answer);
           }}
         >
-          {isLast ? "Submit" : "Next"}
+          {isLoading ? "Generating..." : isLast ? "Submit" : "Next"}
         </button>
       </div>
     </div>
@@ -135,6 +137,7 @@ const Question: FC<{
 const NewPlanPage: NextPage = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState<number>(1);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <main className="flex flex-col items-center min-h-screen justify-center z-10 p-2">
@@ -142,22 +145,24 @@ const NewPlanPage: NextPage = () => {
         <Question
           question={questions[currentQuestionId - 1]}
           isLast={currentQuestionId === questions.length}
+          isLoading={loading}
           onClickNext={async (answer: Answer) => {
             const newAnswers = { ...answers, [currentQuestionId]: answer };
             setAnswers(newAnswers);
             if (currentQuestionId === questions.length) {
+              setLoading(true);
               const data = await getWorkoutPlan({ answer: newAnswers });
               // pass this data to the result page
               window.location.href = `/result?workout=${encodeURIComponent(
                 JSON.stringify(data)
               )}`;
+              setLoading(false);
               return;
             }
             setCurrentQuestionId(currentQuestionId + 1);
           }}
         />
       </div>
-
       <ul className="steps mx-auto -z-10 mt-8 gap-4">
         {formSections.map((section) => (
           <li
@@ -170,6 +175,23 @@ const NewPlanPage: NextPage = () => {
           </li>
         ))}
       </ul>
+      {/* Show answers */}
+      {/* <div className="overflow-x-auto max-h-32 my-4">
+        <table className="table table-compact">
+          <thead>
+            <th>Question</th>
+            <th>Answer</th>
+          </thead>
+          <tbody>
+            {Object.entries(answers).map(([key, value]) => (
+              <tr key={key}>
+                <td>{key}</td>
+                <td>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div> */}
     </main>
   );
 };
