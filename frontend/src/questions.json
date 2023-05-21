@@ -174,9 +174,12 @@
       "text": "How long do you plan to follow this workout program?",
       "question_type": "single_select",
       "options": [
-        "1 month",
-        "3 months",
-        "6 months"
+        "4 weeks",
+        "8 weeks",
+        "12 weeks",
+        "16 weeks",
+        "20 weeks",
+        "24 weeks"
       ]
     },
     {

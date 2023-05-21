@@ -51,27 +51,65 @@ const Question: FC<{
   isLast: boolean;
   isLoading: boolean;
   onClickNext: (answer: Answer) => Promise<void>;
-}> = ({ question, isLast, isLoading, onClickNext }) => {
+  onClickBack?: () => void;
+  selectedAnswer: Answer;
+}> = ({
+  question,
+  isLast,
+  isLoading,
+  onClickNext,
+  onClickBack,
+  selectedAnswer,
+}) => {
   const [answer, setAnswer] = useState<Answer>(
-    question.question_type ? [] : question.options?.[0] || ""
+    selectedAnswer ||
+      (question.question_type === "multi_select"
+        ? [question.options?.[0]]
+        : question.options?.[0] || "")
   );
 
   useEffect(() => {
     if (question.question_type === "single_select") {
-      setAnswer(question.options?.[0]);
+      setAnswer(selectedAnswer || question.options?.[0]);
     } else if (question.question_type === "multi_select") {
-      setAnswer([]);
+      setAnswer(selectedAnswer || [question.options?.[0]]);
     } else if (question.question_type === "numeric_input") {
-      setAnswer("50");
+      setAnswer(selectedAnswer || "50");
     } else {
-      setAnswer("N/A");
+      setAnswer(selectedAnswer || "N/A");
     }
-  }, [question]);
+  }, [question, selectedAnswer]);
 
   return (
     <div className="card card-normal bordered px-8 glass">
       <div className="card-body flex flex-col items-center">
-        <h2 className="card-title">{question.text}</h2>
+        <div className="flex items-center w-full">
+          <div className="absolute left-4 m-2 pb-2">
+            {question.id !== 1 && (
+              <button
+                className={"btn btn-circle btn-outline btn-xs"}
+                onClick={onClickBack}
+                disabled={isLoading}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+          <h2 className="card-title">{question.text}</h2>
+        </div>
 
         <div className="form-control">
           {question.question_type === "single_select" && (
@@ -107,14 +145,18 @@ const Question: FC<{
             />
           )}
           {question.question_type === "multi_select" && (
-            <Select
-              isMulti
-              options={formatMultiOptions(question.options)}
-              className="select select-bordered  z-100"
-              onChange={(values) => {
-                setAnswer(values.map((value) => value.value));
-              }}
-            />
+            <div className="flex">
+              <Select
+                isMulti
+                closeMenuOnSelect={false}
+                options={formatMultiOptions(question.options)}
+                defaultValue={formatMultiOptions(question.options)[0]}
+                className="select-bordered z-100 w-full max-w-xs"
+                onChange={(values) => {
+                  setAnswer(values.map((value) => value.value));
+                }}
+              />
+            </div>
           )}
         </div>
 
@@ -152,7 +194,7 @@ const Loader: FC<{}> = ({}) => {
           ></path>
         </svg>
         <span>
-          Please wait for approximately 5 minutes for GPT-4 to generate your
+          💭 Please wait for approximately 5 minutes for GPT-4 to generate your
           plan!
         </span>
       </div>
@@ -187,13 +229,17 @@ const NewPlanPage: NextPage = () => {
             }
             setCurrentQuestionId(currentQuestionId + 1);
           }}
+          onClickBack={() => {
+            setCurrentQuestionId(currentQuestionId - 1);
+          }}
+          selectedAnswer={answers[currentQuestionId]}
         />
       </div>
 
       {loading ? (
         <Loader />
       ) : (
-        <ul className="steps mx-auto -z-10 mt-8 gap-4">
+        <ul className="steps steps-vertical md:steps-horizontal mx-auto -z-10 mt-8 gap-4">
           {formSections.map((section) => (
             <li
               key={section}
