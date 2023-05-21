@@ -2,7 +2,7 @@ interface dataProps {
   answer: Record<number, string | string[]>;
 }
 
-const API_URL = "https://fitai-backend.onrender.com";
+const API_URL = "https://fitai-backend.up.railway.app";
 // const API_URL = "http://localhost:5000";
 
 export const getWorkoutPlan = async (
@@ -21,4 +21,12 @@ export const getWorkoutPlan = async (
   const json = await response.json();
   console.log(json);
   return json;
+};
+
+export const getServer = async (endpoint: string = "/") => {
+  console.log("Starting server...");
+  const response = await fetch(`${API_URL}${endpoint}`, {
+    method: "GET",
+  });
+  return response;
 };

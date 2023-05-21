@@ -5,7 +5,7 @@ import { FC, useContext, useEffect, useState } from "react";
 import Select from "react-select";
 
 import questionsFile from "../../questions.json";
-import { getWorkoutPlan } from "../utils";
+import { getServer, getWorkoutPlan } from "../utils";
 import { Answer } from "../types";
 
 const { questions } = questionsFile as {
@@ -206,6 +206,18 @@ const NewPlanPage: NextPage = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState<number>(1);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      const server = await getServer();
+      // console.log("SERVER: ", server);
+      if (server.status === 200) {
+        console.log("Server online!");
+      }
+    })();
+
+    return () => {};
+  }, []);
 
   return (
     <main className="flex flex-col items-center min-h-screen justify-center z-10 p-2">
