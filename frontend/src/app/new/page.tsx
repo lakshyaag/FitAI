@@ -239,10 +239,10 @@ const NewPlanPage: NextPage = () => {
               setLoading(false);
               return;
             }
-            setCurrentQuestionId(currentQuestionId + 1);
+            setCurrentQuestionId((prevId) => prevId + 1);
           }}
           onClickBack={() => {
-            setCurrentQuestionId(currentQuestionId - 1);
+            setCurrentQuestionId((prevId) => prevId - 1);
           }}
           selectedAnswer={answers[currentQuestionId]}
         />
