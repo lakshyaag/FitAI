@@ -5,7 +5,7 @@ from langchain.prompts import (
 
 SCHEMA = """
 WorkoutPlan:
-  summary: Summary of CLIENT's answers in 5-10 lines that includes number of weeks/days, primary goal, focus muscle groups, phyiscal or medical constraints, and other pertinent information
+  summary: Summary of CLIENT's answers in 5-10 lines that includes number of weeks, number of days, workout duration, primary goal, focus muscle groups, physical or medical constraints, and other pertinent information
   num_wks: Number of weeks for the workout plan (example: 4, 8, 12)
   num_days: Number of days per week for workout (example: 2, 5)
   wks:
@@ -81,6 +81,7 @@ qa_message = HumanMessagePromptTemplate.from_template(
 format_message = HumanMessagePromptTemplate.from_template(
     template="""With the given details, think step by step exhaustively.
     How many weeks does the CLIENT plan to follow the workout program?
+    Then, generate a summary of the CLIENT's information in 10-12 lines that includes number of weeks, number of days, workout duration, primary goal, focus muscle groups, physical or medical constraints, and other pertinent information
 
     Then, proceed to create a detailed plan for the CLIENT, making sure to incorporate their inputs properly. 
     DO NOT explain the steps you are taking to create the plan. YOU ARE ONLY SUPPOSED to reply with the plan IN THE GIVEN FORMAT."""  # noqa: E501
