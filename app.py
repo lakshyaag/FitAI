@@ -54,6 +54,7 @@ with col2:
         )
 
         messages = utils.generate_prompt(qa_messages=qa_messages)
+        st.write(answers)
 
         try:
             with st.spinner(
@@ -61,11 +62,13 @@ with col2:
             ):
                 response = utils.call_gpt(prompt=messages, model=model)
 
-                plan = utils.parse_response(response=response)
+                plan, response_json = utils.parse_response(response=response)
 
                 workout, notes = utils.convert_to_dataframe(plan=plan)
 
                 workout_tab, notes_tab = st.tabs(["💪 Workouts", "📝 Notes"])
+
+                st.write(response_json)
 
                 with workout_tab:
                     st.dataframe(workout, use_container_width=True)

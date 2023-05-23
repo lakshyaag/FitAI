@@ -31,5 +31,8 @@ class N(BaseModel):
 
 
 class WorkoutPlan(BaseModel):
+    summary: str
+    num_wks: int
+    num_days: int
     wks: List[Wk]
     notes: List[N]

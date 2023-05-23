@@ -5,10 +5,13 @@ from langchain.prompts import (
 
 SCHEMA = """
 WorkoutPlan:
+  summary: Summary of CLIENT's answers in 5-10 lines that includes number of weeks/days, primary goal, focus muscle groups, phyiscal or medical constraints, and other pertinent information
+  num_wks: Number of weeks for the workout plan (example: 4, 8, 12)
+  num_days: Number of days per week for workout (example: 2, 5)
   wks:
-    - wk_range: Week or range of weeks in the plan (e.g., Week 1-2).
+    - wk_range: Range of weeks for which the given exercises need to be done (example: Week 1-2).
     days:
-      - num: Day number within the workout plan.
+      - num: Day number of the week for which the exercises need to be done. (example: 1, 2, 3)
       - focus: Primary muscle group or activity targeted on this day.
       exs:
         - name: Name of the exercise.
@@ -24,8 +27,11 @@ WorkoutPlan:
 
 EXAMPLE_RESPONSE = """
 WorkoutPlan:
+  summary: ABCD
+  num_wks: 3
+  num_days: 2
   wks:
-    - wk_range: Week 1-2
+    - wk_range: Week 1-3
       days:
         - num: 1
           focus: Body Part A
@@ -73,14 +79,16 @@ qa_message = HumanMessagePromptTemplate.from_template(
 
 
 format_message = HumanMessagePromptTemplate.from_template(
-    template="""With the given details, think step by step in detail AS A QUALIFIED FITNESS TRAINER. Then, proceed to create a detailed weekly plan for the CLIENT, making sure to incorporate their inputs properly. 
-    Ensure that you include cardio and rest time inside the plan as part of the `exercise` object only.
+    template="""With the given details, think step by step exhaustively.
+    How many weeks does the CLIENT plan to follow the workout program?
+
+    Then, proceed to create a detailed plan for the CLIENT, making sure to incorporate their inputs properly. 
     DO NOT explain the steps you are taking to create the plan. YOU ARE ONLY SUPPOSED to reply with the plan IN THE GIVEN FORMAT."""  # noqa: E501
 )
 
 
 schema_message = HumanMessagePromptTemplate.from_template(
-    template="""
+    template="""  
 The output should be formatted in a way that conforms to the given schema below. As an example, a valid response is: 
 {example_response}
 

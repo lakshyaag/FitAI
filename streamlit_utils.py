@@ -118,7 +118,7 @@ def parse_response(response):
     #     json.dump(response_json, f)
 
     plan = WorkoutPlan(**response_json["WorkoutPlan"])
-    return plan
+    return plan, response_json
 
 
 def convert_to_dataframe(plan):

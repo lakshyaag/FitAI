@@ -64,7 +64,7 @@
         },
         {
             "id": 7,
-            "section": "Fitness History",
+            "section": "Goals & Preferences",
             "text": "How many days per week can you dedicate to strength training?",
             "question_type": "single_select",
             "options": [
@@ -142,23 +142,6 @@
         },
         {
             "id": 13,
-            "section": "Physical Constraints",
-            "text": "Have you ever had any previous injuries or medical conditions that may affect your training?",
-            "question_type": "single_select",
-            "options": [
-                "No",
-                "Yes"
-            ]
-        },
-        {
-            "id": 14,
-            "section": "Physical Constraints",
-            "text": "If yes, please specify the injuries or medical conditions (consult a healthcare professional before starting any fitness program)",
-            "question_type": "text_input",
-            "options": []
-        },
-        {
-            "id": 15,
             "section": "Goals & Preferences",
             "text": "What is your preferred duration for each workout session?",
             "question_type": "single_select",
@@ -170,7 +153,7 @@
             ]
         },
         {
-            "id": 16,
+            "id": 14,
             "section": "Goals & Preferences",
             "text": "What equipment do you have access to for your workouts? (Select all that apply)",
             "question_type": "multi_select",
@@ -182,26 +165,49 @@
                 "Pull-up bar",
                 "Bench",
                 "Squat rack",
-                "Cardio machines (e.g., treadmill, stationary bike, elliptical)",
-                "None"
+                "Cardio machines (e.g., treadmill, stationary bike, elliptical)"
             ]
         },
         {
-            "id": 17,
-            "section": "Goals & Preferences",
-            "text": "Are there any specific exercises you're already familiar with and would like to include in your workout plan? (Optional)",
-            "question_type": "text_input",
-            "options": []
-        },
-        {
-            "id": 18,
+            "id": 15,
             "section": "Goals & Preferences",
             "text": "How long do you plan to follow this workout program?",
             "question_type": "single_select",
             "options": [
-                "1 month",
-                "3 months",
-                "6 months"
+                "4 weeks",
+                "8 weeks",
+                "12 weeks",
+                "16 weeks",
+                "20 weeks",
+                "24 weeks"
+            ]
+        },
+        {
+            "id": 16,
+            "section": "Goals & Preferences",
+            "text": "Are there any specific exercises you're already familiar with and would like to include in your workout plan? (Optional)",
+            "question_type": "text_input",
+            "options": [
+                "N/A"
+            ]
+        },
+        {
+            "id": 17,
+            "section": "Physical Constraints",
+            "text": "Have you ever had any previous injuries or medical conditions that may affect your training?",
+            "question_type": "single_select",
+            "options": [
+                "No",
+                "Yes"
+            ]
+        },
+        {
+            "id": 18,
+            "section": "Physical Constraints",
+            "text": "If yes, please specify the injuries or medical conditions (consult a healthcare professional before starting any fitness program)",
+            "question_type": "text_input",
+            "options": [
+                "N/A"
             ]
         }
     ]
