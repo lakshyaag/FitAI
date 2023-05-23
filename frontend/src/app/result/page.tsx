@@ -1,7 +1,9 @@
 "use client";
 import { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { APIResponse, IDay, IExs, IWeek } from "../types";
+import { SupabaseClient, createClient } from "@supabase/supabase-js";
 
 const calculateTabIndex = (weekNumber: number, dayNumber: number) => {
   // TODO: 4 is the number of weeks in one cycle. This should be dynamic.
@@ -228,41 +230,12 @@ const calculateTabIndex = (weekNumber: number, dayNumber: number) => {
 //   ],
 // };
 
-interface IWeek {
-  wk_range: string;
-  days: IDay[];
-}
-
-interface IDay {
-  num: number;
-  focus: string;
-  exs: IExs[] | null;
-}
-
-interface IExs {
-  name: string;
-  type: string;
-  sets: string | null;
-  reps: string | null;
-  dur: {
-    val: number;
-    unit: string;
-  } | null;
-}
-
 const exTypeColor: { [exType: IExs["type"]]: string } = {
   Warmup: "badge-neutral",
   Strength: "badge-primary",
   Cardio: "badge-secondary",
   Stretching: "badge-accent",
 };
-
-export interface APIResponse {
-  wks: IWeek[];
-  notes: {
-    content: string;
-  }[];
-}
 
 const WeekDisplay: FC<{ week: IWeek; weekNumber: number }> = ({
   week,
@@ -354,39 +327,91 @@ const WorkoutDisplay: FC<{ exs: IExs[] }> = ({ exs }) => {
   );
 };
 
+const fetchPlanDatabase = async (supabase: SupabaseClient, id: string) => {
+  const { data, error } = await supabase
+    .from("plans")
+    .select("response")
+    .eq("id", id);
+
+  return data;
+};
+
 const ResultPage: NextPage = () => {
   const search = useSearchParams();
-  const generatedWorkout: APIResponse = JSON.parse(
-    decodeURIComponent(search.get("workout") as string)
+  // const generatedWorkout: APIResponse = JSON.parse(
+  //   decodeURIComponent(search.get("workout") as string)
+  // );
+  // console.log(generatedWorkout);
+
+  const [generatedWorkout, setGeneratedWorkout] = useState<APIResponse>();
+
+  const plan_id = search.get("plan_id") as string;
+  const supabase = createClient(
+    "https://wibpwiyydrvuhrcpqjhi.supabase.co",
+    process.env.NEXT_PUBLIC_SUPABASE_KEY as string
   );
+
+  useEffect(() => {
+    (async () => {
+      fetchPlanDatabase(supabase, plan_id)
+        .then((res) => {
+          return res![0]["response"];
+        })
+        .then((response) => setGeneratedWorkout(response));
+    })();
+
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plan_id]);
+
   console.log(generatedWorkout);
 
   return (
     <main className="min-h-screen justify-center">
-      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mt-4">
-        📏 Your personalized workout
-      </h1>
+      {generatedWorkout && (
+        <>
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mt-4">
+            📏 Your personalized workout
+          </h1>
 
-      <div className="divider" />
+          <div className="divider" />
 
-      <div className="flex flex-col justify-center gap-8 px-2">
-        {generatedWorkout.wks.map((week) => (
-          <WeekDisplay
-            key={week.wk_range}
-            week={week}
-            weekNumber={generatedWorkout.wks.indexOf(week)}
-          />
-        ))}
-      </div>
+          <div className="flex flex-col justify-center px-2 max-w-2xl">
+            <div
+              tabIndex={0}
+              className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
+            >
+              <div className="collapse-title text-xl font-bold">
+                {"📝 "}Summary
+              </div>
+              <div className="collapse-content">{generatedWorkout.summary}</div>
+            </div>
+          </div>
 
-      <div className="divider" />
+          <div className="divider" />
 
-      <h3 className="text-2xl font-bold px-2">Notes</h3>
-      <ul className="list-disc list-inside px-2">
-        {generatedWorkout.notes.map((note) => (
-          <li key={note.content}>{note.content}</li>
-        ))}
-      </ul>
+          <div className="flex flex-col justify-center gap-8 px-2 max-w-2xl">
+            {generatedWorkout.wks.map((week) => (
+              <WeekDisplay
+                key={week.wk_range}
+                week={week}
+                weekNumber={generatedWorkout.wks.indexOf(week)}
+              />
+            ))}
+          </div>
+
+          <div className="divider" />
+
+          <div className="flex flex-col justify-center px-2 max-w-2xl">
+            <h3 className="text-2xl font-bold">Notes</h3>
+            <ul className="list-disc list-inside">
+              {generatedWorkout.notes.map((note) => (
+                <li key={note.content}>{note.content}</li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
     </main>
   );
 };

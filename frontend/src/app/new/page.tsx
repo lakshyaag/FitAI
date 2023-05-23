@@ -6,7 +6,9 @@ import Select from "react-select";
 
 import questionsFile from "../../questions.json";
 import { getServer, getWorkoutPlan } from "../utils";
-import { Answer } from "../types";
+import { APIResponse, Answer } from "../types";
+import { SupabaseClient, createClient } from "@supabase/supabase-js";
+import { Database } from "../supabase";
 
 const { questions } = questionsFile as {
   questions: Question[];
@@ -194,18 +196,34 @@ const Loader: FC<{}> = ({}) => {
           ></path>
         </svg>
         <span>
-          💭 Please wait for approximately 5 minutes for GPT-4 to generate your
-          plan!
+          💭 Please wait while we generate your personalized workout plan...
         </span>
       </div>
     </div>
   );
 };
 
+const insertPlanDatabase = async (
+  supabase: SupabaseClient,
+  response: APIResponse
+) => {
+  const { data, error } = await supabase
+    .from("plans")
+    .insert({ response: response })
+    .select();
+
+  return data;
+};
+
 const NewPlanPage: NextPage = () => {
   const [currentQuestionId, setCurrentQuestionId] = useState<number>(1);
   const [answers, setAnswers] = useState<Record<number, Answer>>({});
   const [loading, setLoading] = useState<boolean>(false);
+
+  const supabase = createClient<Database>(
+    "https://wibpwiyydrvuhrcpqjhi.supabase.co",
+    process.env.NEXT_PUBLIC_SUPABASE_KEY as string
+  );
 
   useEffect(() => {
     (async () => {
@@ -231,11 +249,16 @@ const NewPlanPage: NextPage = () => {
             setAnswers(newAnswers);
             if (currentQuestionId === questions.length) {
               setLoading(true);
-              const data = await getWorkoutPlan({ answer: newAnswers });
+              const data: APIResponse = await getWorkoutPlan({
+                answer: newAnswers,
+              });
+
+              const newRow = await insertPlanDatabase(supabase, data);
               // pass this data to the result page
-              window.location.href = `/result?workout=${encodeURIComponent(
-                JSON.stringify(data)
+              window.location.href = `/result?plan_id=${encodeURIComponent(
+                newRow![0].id
               )}`;
+              // console.log(newRow[0].id);
               setLoading(false);
               return;
             }
