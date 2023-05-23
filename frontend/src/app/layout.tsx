@@ -1,12 +1,27 @@
 import { Dispatch, SetStateAction, createContext, useState } from "react";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "FitAI",
   description: "Elevate your fitness game with a custom workout plan",
+  themeColor: "#d1c1d7",
+  openGraph: {
+    type: "website",
+    title: "FitAI",
+    description: "Elevate your fitness game with a custom workout plan",
+    url: "https://fit-ai-omega.vercel.app/",
+    images: "/opengraph-image.png",
+  },
+  twitter: {
+    title: "FitAI",
+    description: "Elevate your fitness game with a custom workout plan",
+    card: "summary",
+    images: "/opengraph-image.png",
+  },
 };
 
 export default function RootLayout({

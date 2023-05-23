@@ -40,7 +40,7 @@ const formSections: FormSection[] = [
 const sectionBreakpoints = {
   "Personal Information": 1,
   "Fitness History": 5,
-  "Goals & Preferences": 8,
+  "Goals & Preferences": 7,
   "Physical Constraints": 17,
 };
 

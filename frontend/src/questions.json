@@ -64,7 +64,7 @@
     },
     {
       "id": 7,
-      "section": "Fitness History",
+      "section": "Goals & Preferences",
       "text": "How many days per week can you dedicate to strength training?",
       "question_type": "single_select",
       "options": [
