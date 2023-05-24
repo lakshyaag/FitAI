@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict, Union, List
@@ -25,19 +25,25 @@ def root():
     }
 
 
-@app.post("/generate/")
+@app.post("/generate/", status_code=200)
 def get_workout_plan(answers: Request):
-    qa_messages = utils.generate_qa_messages(
-        questions_list=questions_list, answers=answers.answer
-    )
+    try:
+        qa_messages = utils.generate_qa_messages(
+            questions_list=questions_list, answers=answers.answer
+        )
 
-    prompts = utils.generate_prompt(qa_messages=qa_messages)
+        prompts = utils.generate_prompt(qa_messages=qa_messages)
 
-    response = utils.call_gpt(prompt=prompts, model="gpt-3.5-turbo")
+        response = utils.call_gpt(prompt=prompts, model="gpt-3.5-turbo")
 
-    parsed_response = utils.parse_response(response=response)
+        parsed_response = utils.parse_response(response=response)
 
-    return parsed_response
+        return {"status_code": 200, "response": parsed_response}
+
+    except Exception as e:
+        return HTTPException(
+            status_code=500, detail=f"Error in generating response: {e}"
+        )
 
 
 if __name__ == "__main__":
