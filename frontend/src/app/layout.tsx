@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, createContext, useState } from "react";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         className={`${inter.className} -z-20 relative flex flex-col items-center bg-base-200`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
