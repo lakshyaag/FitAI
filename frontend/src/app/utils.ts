@@ -11,6 +11,7 @@ export const getWorkoutPlan = async (
 ) => {
   console.log("Fetching data");
   console.log("DATA: ", JSON.stringify(data));
+
   const response = await fetch(`${API_URL}${endpoint}`, {
     method: "POST",
     headers: {
@@ -18,6 +19,7 @@ export const getWorkoutPlan = async (
     },
     body: JSON.stringify(data),
   });
+
   const json = await response.json();
   console.log(json);
   return json;

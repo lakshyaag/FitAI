@@ -140,7 +140,7 @@ const Question: FC<{
           )}
           {question.question_type === "numeric_input" && (
             <input
-              type="text"
+              type="number"
               className="input input-bordered w-full max-w-xs"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
@@ -182,19 +182,6 @@ const Loader: FC<{}> = ({}) => {
   return (
     <div className="mt-4 alert bg-secondary text-secondary-content shadow-md">
       <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          className="stroke-current flex-shrink-0 w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
-        </svg>
         <span>
           💭 Please wait while we generate your personalized workout plan...
         </span>
@@ -249,16 +236,26 @@ const NewPlanPage: NextPage = () => {
             setAnswers(newAnswers);
             if (currentQuestionId === questions.length) {
               setLoading(true);
-              const data: APIResponse = await getWorkoutPlan({
+
+              const response = await getWorkoutPlan({
                 answer: newAnswers,
               });
 
-              const newRow = await insertPlanDatabase(supabase, data);
-              // pass this data to the result page
-              window.location.href = `/result?plan_id=${encodeURIComponent(
-                newRow![0].id
-              )}`;
-              // console.log(newRow[0].id);
+              if (response.status_code == 200) {
+                const data: APIResponse = response.response;
+                console.log(data);
+                const newRow = await insertPlanDatabase(supabase, data);
+                // pass this data to the result page
+                window.location.href = `/result?plan_id=${encodeURIComponent(
+                  newRow![0].id
+                )}`;
+              } else {
+                alert(
+                  "There was an error in generating your plan 😢. Please try again!"
+                );
+                window.location.reload();
+              }
+
               setLoading(false);
               return;
             }
@@ -274,7 +271,7 @@ const NewPlanPage: NextPage = () => {
       {loading ? (
         <Loader />
       ) : (
-        <ul className="steps steps-vertical md:steps-horizontal mx-auto -z-10 mt-8 gap-4">
+        <ul className="steps steps-vertical text-xs md:text-sm md:steps-horizontal mx-auto -z-10 mt-8 gap-4">
           {formSections.map((section) => (
             <li
               key={section}
