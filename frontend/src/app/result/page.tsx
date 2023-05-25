@@ -388,9 +388,10 @@ const ResultPage: NextPage = () => {
             <button
               className="btn btn-active btn-accent btn-sm"
               onClick={async () => {
-                await setIsDownload((prev) => !prev);
+                await setIsDownload((prev) => true);
                 window.print();
-                setIsDownload((prev) => !prev);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                await setIsDownload((prev) => false);
               }}
             >
               Download
