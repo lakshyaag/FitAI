@@ -237,16 +237,22 @@ const exTypeColor: { [exType: IExs["type"]]: string } = {
   Stretching: "badge-accent",
 };
 
-const WeekDisplay: FC<{ week: IWeek; weekNumber: number }> = ({
-  week,
-  weekNumber,
-}) => {
+const WeekDisplay: FC<{
+  week: IWeek;
+  weekNumber: number;
+  isDownload: boolean;
+}> = ({ week, weekNumber, isDownload }) => {
   return (
     <div>
       <h3 className="text-2xl font-bold">{week.wk_range}</h3>
       <div className="flex flex-col gap-4 mt-4">
         {week.days.map((day) => (
-          <DayDisplay key={day.num} day={day} weekNumber={weekNumber} />
+          <DayDisplay
+            key={day.num}
+            day={day}
+            weekNumber={weekNumber}
+            isDownload={isDownload}
+          />
         ))}
       </div>
     </div>
@@ -277,14 +283,17 @@ const formatSetsRepsDuration = (
   }
 };
 
-const DayDisplay: FC<{ day: IDay; weekNumber: number }> = ({
-  day,
-  weekNumber,
-}) => {
+const DayDisplay: FC<{
+  day: IDay;
+  weekNumber: number;
+  isDownload: boolean;
+}> = ({ day, weekNumber, isDownload }) => {
   return (
     <div
       tabIndex={calculateTabIndex(weekNumber, day.num - 1)}
-      className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
+      className={`collapse collapse-plus border border-base-300 bg-base-100 rounded-box ${
+        isDownload ? "collapse-open" : ""
+      }`}
     >
       <div className="collapse-title text-xl font-medium">
         Day {day.num} - {day.focus}
@@ -345,6 +354,8 @@ const ResultPage: NextPage = () => {
 
   const [generatedWorkout, setGeneratedWorkout] = useState<APIResponse>();
 
+  const [isDownload, setIsDownload] = useState<boolean>(false);
+
   const plan_id = search.get("plan_id") as string;
   const supabase = createClient(
     "https://wibpwiyydrvuhrcpqjhi.supabase.co",
@@ -370,16 +381,30 @@ const ResultPage: NextPage = () => {
     <main className="min-h-screen justify-center">
       {generatedWorkout && (
         <>
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mt-4">
-            📏 Your personalized workout
-          </h1>
+          <div className="flex flex-row items-center gap-4 mt-4">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center">
+              📏 Your personalized workout
+            </h1>
+            <button
+              className="btn btn-active btn-accent btn-sm"
+              onClick={async () => {
+                await setIsDownload((prev) => !prev);
+                window.print();
+                setIsDownload((prev) => !prev);
+              }}
+            >
+              Download
+            </button>
+          </div>
 
           <div className="divider" />
 
           <div className="flex flex-col justify-center px-2 max-w-2xl">
             <div
               tabIndex={0}
-              className="collapse collapse-plus border border-base-300 bg-base-100 rounded-box"
+              className={`collapse collapse-plus border border-base-300 bg-base-100 rounded-box ${
+                isDownload ? "collapse-open" : ""
+              }`}
             >
               <div className="collapse-title text-xl font-bold">
                 {"📝 "}Summary
@@ -396,6 +421,7 @@ const ResultPage: NextPage = () => {
                 key={week.wk_range}
                 week={week}
                 weekNumber={generatedWorkout.wks.indexOf(week)}
+                isDownload={isDownload}
               />
             ))}
           </div>
