@@ -1,4 +1,10 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  webpack: (config) => {
+    config.externals = ["chrome-aws-lambda"];
 
-module.exports = nextConfig
+    return config;
+  },
+};
+
+module.exports = nextConfig;
