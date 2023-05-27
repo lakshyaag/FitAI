@@ -169,9 +169,12 @@ const ResultPage: NextPage = () => {
               className="btn btn-active btn-accent btn-sm"
               onClick={async () => {
                 await setIsDownload((prev) => true);
+                // alert("Save as PDF");
                 window.print();
-                await new Promise((resolve) => setTimeout(resolve, 1000));
-                await setIsDownload((prev) => false);
+                // await new Promise((resolve) => setTimeout(resolve, 10000));
+                window.onafterprint = (event) => {
+                  setIsDownload((prev) => false);
+                };
               }}
             >
               Download
