@@ -10,6 +10,226 @@ const calculateTabIndex = (weekNumber: number, dayNumber: number) => {
   return weekNumber * 4 + dayNumber + 1;
 };
 
+// const generatedWorkout: APIResponse = {
+//   wks: [
+//     {
+//       wk_range: "Week 1-4",
+//       days: [
+//         {
+//           num: 1,
+//           focus: "Upper Body",
+//           exs: [
+//             {
+//               name: "Push-ups",
+//               type: "Bodyweight",
+//               sets: "3",
+//               reps: "10",
+//               dur: null,
+//             },
+//             {
+//               name: "Dumbbell Bicep Curls",
+//               type: "Dumbbells",
+//               sets: "3",
+//               reps: "12",
+//               dur: null,
+//             },
+//             {
+//               name: "Plank",
+//               type: "Bodyweight",
+//               sets: null,
+//               reps: null,
+//               dur: {
+//                 val: 30,
+//                 unit: "seconds",
+//               },
+//             },
+//           ],
+//         },
+//         {
+//           num: 2,
+//           focus: "Lower Body",
+//           exs: [
+//             {
+//               name: "Bodyweight Squats",
+//               type: "Bodyweight",
+//               sets: "4",
+//               reps: "8",
+//               dur: null,
+//             },
+//             {
+//               name: "Lunges",
+//               type: "Bodyweight",
+//               sets: "3",
+//               reps: "10",
+//               dur: null,
+//             },
+//             {
+//               name: "Jumping Jacks",
+//               type: "Cardio",
+//               sets: null,
+//               reps: null,
+//               dur: {
+//                 val: 1,
+//                 unit: "minute",
+//               },
+//             },
+//           ],
+//         },
+//         {
+//           num: 3,
+//           focus: "Rest Day",
+//           exs: null,
+//         },
+//         {
+//           num: 4,
+//           focus: "Full Body",
+//           exs: [
+//             {
+//               name: "Burpees",
+//               type: "Bodyweight",
+//               sets: "3",
+//               reps: "10",
+//               dur: null,
+//             },
+//             {
+//               name: "Deadlift",
+//               type: "Barbells",
+//               sets: "3",
+//               reps: "8",
+//               dur: null,
+//             },
+//             {
+//               name: "Mountain Climbers",
+//               type: "Bodyweight",
+//               sets: null,
+//               reps: null,
+//               dur: {
+//                 val: 30,
+//                 unit: "seconds",
+//               },
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//     {
+//       wk_range: "Week 5-8",
+//       days: [
+//         {
+//           num: 1,
+//           focus: "Upper Body",
+//           exs: [
+//             {
+//               name: "Push-ups",
+//               type: "Bodyweight",
+//               sets: "4",
+//               reps: "12",
+//               dur: null,
+//             },
+//             {
+//               name: "Dumbbell Bicep Curls",
+//               type: "Dumbbells",
+//               sets: "4",
+//               reps: "12",
+//               dur: null,
+//             },
+//             {
+//               name: "Plank",
+//               type: "Bodyweight",
+//               sets: null,
+//               reps: null,
+//               dur: {
+//                 val: 45,
+//                 unit: "seconds",
+//               },
+//             },
+//           ],
+//         },
+//         {
+//           num: 2,
+//           focus: "Lower Body",
+//           exs: [
+//             {
+//               name: "Bodyweight Squats",
+//               type: "Bodyweight",
+//               sets: "4",
+//               reps: "10",
+//               dur: null,
+//             },
+//             {
+//               name: "Lunges",
+//               type: "Bodyweight",
+//               sets: "4",
+//               reps: "12",
+//               dur: null,
+//             },
+//             {
+//               name: "Jumping Jacks",
+//               type: "Cardio",
+//               sets: null,
+//               reps: null,
+//               dur: {
+//                 val: 1,
+//                 unit: "minute",
+//               },
+//             },
+//           ],
+//         },
+//         {
+//           num: 3,
+//           focus: "Rest Day",
+//           exs: null,
+//         },
+//         {
+//           num: 4,
+//           focus: "Full Body",
+//           exs: [
+//             {
+//               name: "Burpees",
+//               type: "Bodyweight",
+//               sets: "4",
+//               reps: "12",
+//               dur: null,
+//             },
+//             {
+//               name: "Deadlift",
+//               type: "Barbells",
+//               sets: "4",
+//               reps: "8",
+//               dur: null,
+//             },
+//             {
+//               name: "Mountain Climbers",
+//               type: "Bodyweight",
+//               sets: null,
+//               reps: null,
+//               dur: {
+//                 val: 45,
+//                 unit: "seconds",
+//               },
+//             },
+//           ],
+//         },
+//       ],
+//     },
+//   ],
+//   notes: [
+//     {
+//       content: "Warm-up for 5-10 minutes before each workout session.",
+//     },
+//     {
+//       content: "Stretch for 5 minutes after each workout session.",
+//     },
+//     {
+//       content: "Adjust the number of sets and reps according to your progress.",
+//     },
+//     {
+//       content:
+//         "Consult a healthcare professional before starting any fitness program.",
+//     },
+//   ],
+// };
+
 const exTypeColor: { [exType: IExs["type"]]: string } = {
   Warmup: "badge-neutral",
   Strength: "badge-primary",
@@ -134,9 +354,9 @@ const ResultPage: NextPage = () => {
 
   const [generatedWorkout, setGeneratedWorkout] = useState<APIResponse>();
 
-  const isDownload = search.get("isDownload") as unknown as boolean;
-  const plan_id = search.get("planId") as string;
+  const [isDownload, setIsDownload] = useState<boolean>(false);
 
+  const plan_id = search.get("plan_id") as string;
   const supabase = createClient(
     "https://wibpwiyydrvuhrcpqjhi.supabase.co",
     process.env.NEXT_PUBLIC_SUPABASE_KEY as string
@@ -168,22 +388,10 @@ const ResultPage: NextPage = () => {
             <button
               className="btn btn-active btn-accent btn-sm"
               onClick={async () => {
-                await fetch("/api/download", {
-                  method: "POST",
-                  body: JSON.stringify({
-                    planId: `planId=${plan_id}&isDownload=true`,
-                  }),
-                })
-                  .then((response) => response.blob())
-                  .then((blob) => {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = `FitAI_${plan_id}.pdf`;
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                  });
+                await setIsDownload((prev) => true);
+                window.print();
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                await setIsDownload((prev) => false);
               }}
             >
               Download

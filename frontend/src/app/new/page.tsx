@@ -246,7 +246,7 @@ const NewPlanPage: NextPage = () => {
                 console.log(data);
                 const newRow = await insertPlanDatabase(supabase, data);
                 // pass this data to the result page
-                window.location.href = `/result?planId=${encodeURIComponent(
+                window.location.href = `/result?plan_id=${encodeURIComponent(
                   newRow![0].id
                 )}`;
               } else {
