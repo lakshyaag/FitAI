@@ -1,0 +1,214 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "section": "Personal Information",
+      "text": "What is your age range?",
+      "question_type": "single_select",
+      "options": [
+        "Under 18",
+        "18-24",
+        "25-34",
+        "35-44",
+        "45-54",
+        "55-64",
+        "65 and above"
+      ]
+    },
+    {
+      "id": 2,
+      "section": "Personal Information",
+      "text": "What is your gender?",
+      "question_type": "single_select",
+      "options": [
+        "Male",
+        "Female",
+        "Non-binary",
+        "Prefer not to say"
+      ]
+    },
+    {
+      "id": 3,
+      "section": "Personal Information",
+      "text": "What is your current height (in cms)?",
+      "question_type": "numeric_input",
+      "options": []
+    },
+    {
+      "id": 4,
+      "section": "Personal Information",
+      "text": "What is your current weight (in kgs)?",
+      "question_type": "numeric_input",
+      "options": []
+    },
+    {
+      "id": 5,
+      "section": "Fitness History",
+      "text": "How would you describe your current fitness level?",
+      "question_type": "single_select",
+      "options": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ]
+    },
+    {
+      "id": 6,
+      "section": "Fitness History",
+      "text": "Have you ever followed a structured strength training program before?",
+      "question_type": "single_select",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "id": 7,
+      "section": "Goals & Preferences",
+      "text": "How many days per week can you dedicate to strength training?",
+      "question_type": "single_select",
+      "options": [
+        "2 days",
+        "3 days",
+        "4 days",
+        "5 days",
+        "6 days",
+        "7 days"
+      ]
+    },
+    {
+      "id": 8,
+      "section": "Goals & Preferences",
+      "text": "What is your primary goal for strength training?",
+      "question_type": "single_select",
+      "options": [
+        "Lose weight",
+        "Gain muscle",
+        "Improve strength",
+        "Increase endurance",
+        "General health and well-being"
+      ]
+    },
+    {
+      "id": 9,
+      "section": "Goals & Preferences",
+      "text": "Do you have access to a gym or will you be working out at home?",
+      "question_type": "single_select",
+      "options": [
+        "Gym",
+        "Home",
+        "Both"
+      ]
+    },
+    {
+      "id": 10,
+      "section": "Goals & Preferences",
+      "text": "Which of these muscle groups do you consider your weakest or want to improve the most?",
+      "question_type": "single_select",
+      "options": [
+        "Chest",
+        "Back",
+        "Arms",
+        "Shoulders",
+        "Legs",
+        "Core"
+      ]
+    },
+    {
+      "id": 11,
+      "section": "Goals & Preferences",
+      "text": "What type of strength training program do you prefer?",
+      "question_type": "single_select",
+      "options": [
+        "Full-body workouts",
+        "Upper/lower body splits",
+        "Push/pull/legs splits",
+        "Body part splits",
+        "Circuit training",
+        "High-intensity interval training",
+        "Functional training"
+      ]
+    },
+    {
+      "id": 12,
+      "section": "Goals & Preferences",
+      "text": "Do you prefer to focus on bodyweight exercises, free weights, or a mix of both?",
+      "question_type": "single_select",
+      "options": [
+        "Bodyweight exercises",
+        "Free weights",
+        "A mix of both"
+      ]
+    },
+    {
+      "id": 13,
+      "section": "Goals & Preferences",
+      "text": "What is your preferred duration for each workout session?",
+      "question_type": "single_select",
+      "options": [
+        "Less than 30 minutes",
+        "30-60 minutes",
+        "60-90 minutes",
+        "More than 90 minutes"
+      ]
+    },
+    {
+      "id": 14,
+      "section": "Goals & Preferences",
+      "text": "What equipment do you have access to for your workouts? (Select all that apply)",
+      "question_type": "multi_select",
+      "options": [
+        "Dumbbells",
+        "Barbells",
+        "Resistance bands",
+        "Kettlebells",
+        "Pull-up bar",
+        "Bench",
+        "Squat rack",
+        "Cardio machines (e.g., treadmill, stationary bike, elliptical)"
+      ]
+    },
+    {
+      "id": 15,
+      "section": "Goals & Preferences",
+      "text": "How long do you plan to follow this workout program?",
+      "question_type": "single_select",
+      "options": [
+        "4 weeks",
+        "8 weeks",
+        "12 weeks",
+        "16 weeks",
+        "20 weeks",
+        "24 weeks"
+      ]
+    },
+    {
+      "id": 16,
+      "section": "Goals & Preferences",
+      "text": "Are there any specific exercises you're already familiar with and would like to include in your workout plan? (Optional)",
+      "question_type": "text_input",
+      "options": [
+        "N/A"
+      ]
+    },
+    {
+      "id": 17,
+      "section": "Physical Constraints",
+      "text": "Have you ever had any previous injuries or medical conditions that may affect your training?",
+      "question_type": "single_select",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "id": 18,
+      "section": "Physical Constraints",
+      "text": "If yes, please specify the injuries or medical conditions (consult a healthcare professional before starting any fitness program)",
+      "question_type": "text_input",
+      "options": [
+        "N/A"
+      ]
+    }
+  ]
+}
